@@ -11,3 +11,12 @@ File Extraction: Filters interesting files (e.g., .php, .js, .backup) for furthe
 WAF Bypass: Adds techniques like random query parameters, double encoding, and path variations to trick basic WAF protections.
 Rate Limit Handling: Automatically pauses when encountering rate-limiting (e.g., HTTP 429).
 This script makes it easy to automate reconnaissance tasks and prepare for vulnerability discovery, with an emphasis on efficiency and evading WAFs.
+
+Required Tools to run the script:
+Subfinder
+Assetfinder
+httpx-toolkit
+Waymore
+Katana
+Waybackurls
+jq
