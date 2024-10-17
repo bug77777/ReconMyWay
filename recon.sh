@@ -89,26 +89,30 @@ done
 # Use Katana for endpoint discovery
 cat $OUTPUT_DIR/live_domains.txt | katana -f qurl -silent -kf all -jc -aff -d 5 -o $OUTPUT_DIR/katana-param.txt
 
+# Run Waybackurls on the target and save output to wayback.txt
+echo -e "${GREEN}Step 5: Extracting URLs using Waybackurls${NO_COLOR}"
+waybackurls "$TARGET" > $OUTPUT_DIR/wayback.txt
+
 # Integrate Waybackurls tool to extract more endpoints with Rate Limiting
-echo -e "${GREEN}Step 5: Extracting More Endpoints using Waybackurls with Rate Limiting${NO_COLOR}"
-until cat $OUTPUT_DIR/live_domains.txt | waybackurls > $OUTPUT_DIR/wayback.txt; do
-    if grep -q "429" <<< "$(tail -n 1 $OUTPUT_DIR/wayback.txt)"; then
+echo -e "${GREEN}Step 6: Extracting More Endpoints using Waybackurls with Rate Limiting${NO_COLOR}"
+until cat $OUTPUT_DIR/live_domains.txt | waybackurls > $OUTPUT_DIR/wayback_live.txt; do
+    if grep -q "429" <<< "$(tail -n 1 $OUTPUT_DIR/wayback_live.txt)"; then
         handle_rate_limit
     else
         break
     fi
 done
 
-# New addition to extract JavaScript files using Waybackurls
-echo -e "${GREEN}Step 6: Extracting JavaScript files using Waybackurls${NO_COLOR}"
+# Extract JavaScript files from Waybackurls output
+echo -e "${GREEN}Step 7: Extracting JavaScript files using Waybackurls${NO_COLOR}"
 waybackurls "$TARGET" | grep -Eo 'https?://[^/]+/[^"]+\.js' > $OUTPUT_DIR/js_files.txt
 
 # Extract interesting files (backup, js, php, etc.)
-echo -e "${GREEN}Step 7: Extracting Interesting Files${NO_COLOR}"
+echo -e "${GREEN}Step 8: Extracting Interesting Files${NO_COLOR}"
 grep -E -i -o '\S+\.(cobak|backup|swp|old|db|sql|asp|aspx|aspx~|asp~|php|php~|bak|bkp|cache|cgi|conf|csv|html|inc|jar|js|json|jsp|jsp~|lock|log|rar\.old|sql|tar\.gz|tar\.bz2|zip|xml|json)\b' "$OUTPUT_DIR/waymore.txt" "$OUTPUT_DIR/katana-param.txt" "$OUTPUT_DIR/wayback.txt" "$OUTPUT_DIR/js_files.txt" | sort -u > $OUTPUT_DIR/interesting.txt
 
 # Combine Waymore, Katana, and Waybackurls results, remove duplicates and unnecessary extensions
-echo -e "${GREEN}Step 8: Combining Results, Adding Variations, and Encoding Payloads${NO_COLOR}"
+echo -e "${GREEN}Step 9: Combining Results, Adding Variations, and Encoding Payloads${NO_COLOR}"
 cat $OUTPUT_DIR/waymore.txt $OUTPUT_DIR/katana-param.txt $OUTPUT_DIR/wayback.txt $OUTPUT_DIR/js_files.txt | sort -u | grep "=" | qsreplace 'FUZZ' | egrep -v '(.css|.png|.jpeg|.jpg|.svg|.gif|.tif|.tiff|.woff|.woff2|.ico|.pdf)' > $OUTPUT_DIR/waymore-katana-unfilter-urls.txt
 
 # Add advanced WAF bypass techniques
@@ -128,11 +132,11 @@ while IFS= read -r line; do
 done < $OUTPUT_DIR/waymore-katana-unfilter-urls.txt
 
 # Filter live URLs again using httpx-toolkit with WAF bypass techniques
-echo -e "${GREEN}Step 9: Filtering Final URLs Using httpx-toolkit with Advanced WAF Bypass${NO_COLOR}"
+echo -e "${GREEN}Step 10: Filtering Final URLs Using httpx-toolkit with Advanced WAF Bypass${NO_COLOR}"
 httpx-toolkit -l $OUTPUT_DIR/waymore-katana-unfilter-urls-waf.txt -o $OUTPUT_DIR/waymore-katana-filter-urls.txt --silent --threads 100 --timeout 10 --status-code -H "User-Agent: $RAND_AGENT" $CUSTOM_HEADERS
 
 # Find URLs with parameters (potential vulnerabilities)
-echo -e "${GREEN}Step 10: Finding Testable Parameters${NO_COLOR}"
+echo -e "${GREEN}Step 11: Finding Testable Parameters${NO_COLOR}"
 grep "=" $OUTPUT_DIR/waymore-katana-filter-urls.txt > $OUTPUT_DIR/parameters_with_equal.txt
 
 echo -e "${GREEN}Reconnaissance Completed with Advanced WAF Bypass. Check $OUTPUT_DIR for results.${NO_COLOR}"
