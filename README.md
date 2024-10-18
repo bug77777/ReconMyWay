@@ -70,7 +70,7 @@ Run the Script with a Target Domain
 _Replace example.com with the domain you are targeting_
 
 Next Steps
-After running ReconMyWay, you will have a set of useful data, including subdomains, live endpoints, JavaScript files, and other potentially interesting files. You can use this data to perform further vulnerability scans with tools like Nuclei to detect weaknesses and security issues in the target application.
+After running ReconMyWay, you will have a set of useful data, including **subdomains**, **live endpoints**, **JavaScript files**, and other potentially interesting files. You can use this data to perform further vulnerability scans with tools like Nuclei to detect weaknesses and security issues in the target application.
 
 
 
@@ -79,19 +79,19 @@ After running ReconMyWay, you will have a set of useful data, including subdomai
 
 __This script uses various open-source tools and resources developed by the awesome cybersecurity community. Special thanks to the creators of the following tools:__
 
-Subfinder: @ProjectDiscovery - Subdomain enumeration tool.
+**Subfinder**: @ProjectDiscovery - Subdomain enumeration tool.
 
-Assetfinder: @Tomnomnom - Subdomain finder tool.
+**Assetfinder**: @Tomnomnom - Subdomain finder tool.
 
-httpx-toolkit: @ProjectDiscovery - Fast and multi-purpose HTTP toolkit.
+**httpx-toolkit**: @ProjectDiscovery - Fast and multi-purpose HTTP toolkit.
 
-Waymore: @xnl-h4ck3r - Automated URL data collection tool.
+**Waymore**: @xnl-h4ck3r - Automated URL data collection tool.
 
-Katana: @ProjectDiscovery - Web application crawler and endpoint discovery tool.
+**Katana**: @ProjectDiscovery - Web application crawler and endpoint discovery tool.
 
-Waybackurls: @Tomnomnom - Fetches URLs from the Wayback Machine for historical data.
+**Waybackurls**: @Tomnomnom - Fetches URLs from the Wayback Machine for historical data.
 
-jq: @Stephen Dolan - Lightweight and flexible command-line JSON processor.
+**jq**: @Stephen Dolan - Lightweight and flexible command-line JSON processor.
 
 
 The development of ReconMyWay would not have been possible without the contributions of these incredible developers and their projects.
