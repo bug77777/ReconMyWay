@@ -15,11 +15,17 @@ This script makes it easy to automate reconnaissance tasks and prepare for vulne
 Prerequisites
 
 Subfinder: go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+
 Assetfinder: go get github.com/tomnomnom/assetfinder
+
 httpx-toolkit: go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+
 Waymore: git clone https://github.com/xnl-h4ck3r/waymore.git && cd waymore && pip3 install -r requirements.txt
+
 Katana: go install github.com/projectdiscovery/katana/cmd/katana@latest
+
 Waybackurls: go install github.com/tomnomnom/waybackurls@latest
+
 jq: sudo apt install jq
 
 Ensure these tools are installed and available in your system's PATH
