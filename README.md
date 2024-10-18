@@ -24,7 +24,7 @@ Before running the ReconMyWay tool, make sure you have the following dependencie
 **Install**: `go get github.com/tomnomnom/assetfinder`
 
 
-**httpx-toolkit**: A fast and multi-purpose HTTP toolkit.
+**httpx-toolkit** or **httpx**: A fast and multi-purpose HTTP toolkit.
 
 **Install**: `go install github.com/projectdiscovery/httpx/cmd/httpx@latest`
 
