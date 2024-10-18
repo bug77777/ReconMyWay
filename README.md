@@ -12,11 +12,32 @@ WAF Bypass: Adds techniques like random query parameters, double encoding, and p
 Rate Limit Handling: Automatically pauses when encountering rate-limiting (e.g., HTTP 429).
 This script makes it easy to automate reconnaissance tasks and prepare for vulnerability discovery, with an emphasis on efficiency and evading WAFs.
 
-Required Tools to run the script:
-Subfinder
-Assetfinder
-httpx-toolkit
-Waymore
-Katana
-Waybackurls
-jq
+Prerequisites
+
+Subfinder: go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+Assetfinder: go get github.com/tomnomnom/assetfinder
+httpx-toolkit: go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+Waymore: git clone https://github.com/xnl-h4ck3r/waymore.git && cd waymore && pip3 install -r requirements.txt
+Katana: go install github.com/projectdiscovery/katana/cmd/katana@latest
+Waybackurls: go install github.com/tomnomnom/waybackurls@latest
+jq: sudo apt install jq
+
+Ensure these tools are installed and available in your system's PATH
+
+Usage:
+
+Navigate to the directory where your recon.sh script is located:
+
+cd /path/to/your/recon-script
+
+Make the script executable:
+
+chmod +x recon.sh
+
+Run the script with the target domain:
+
+./recon.sh example.com
+
+
+You can use the output of the above script with tool like nuclei to run scans 
+
